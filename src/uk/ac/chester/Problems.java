@@ -1,9 +1,9 @@
 package uk.ac.chester;
 
+import java.util.Arrays;
+
 public class Problems
 {
-
-
     // ***EXAMPLE***
     // Write a static method which returns the triple of a number
     // it should take an int as a parameter
@@ -13,33 +13,32 @@ public class Problems
     }
 
 
-
      // Complete this method which determines if the heating should be on,
      // this should happen if the room temperature is below 19 degrees C
      // it takes a parameter called roomTemperature, indicating a room temperature value in Celsius
      // it should true if the temperature value is below 19, false otherwise
-    static boolean heatingShouldBeOn(double roomTemperature) {
-        //change this to solve the problem
-        return false;
+    static boolean heatingShouldBeOn(double roomTemperature)
+    {
+        return roomTemperature < 19;
     }
-
 
 
     //Write a static method named averageOfThreeNumbers that returns an int
     //It will take three parameters, each one being an int, and return the average (mean) of them
     //The result should be an integer, and so the result should be rounded down if needed
-
-
-
+    static int averageOfThreeNumbers(int x, int y, int z)
+    {
+        return (x + y + z) / 3;
+    }
 
 
     //Write a static method called concatenatedWords
     //Given 4 strings as parameters, each will hold a single word
     //return the four words separated by spaces
-
-
-
-
+    static String concatenatedWords(String a, String b, String c, String d)
+    {
+        return a + " " + b + " " + c + " " + d;
+    }
 
 
      //Write a static method named scrabbleTileValue which returns an int
@@ -52,9 +51,30 @@ public class Problems
      // 5: k
      // 8: j,x
      // 10: q,z
+    static int scrabbleTileValue(char scrabbleLetter)
+    {
+        char lowercaseLetter = Character.toLowerCase(scrabbleLetter);
 
+        switch (lowercaseLetter)
+        {
+            case 'a', 'e', 'i', 'l', 'n', 'o', 'r', 's', 't', 'u':
+                return 1;
+            case 'd', 'g':
+                return 2;
+            case 'b', 'c', 'm', 'p':
+                return 3;
+            case 'f', 'h', 'v', 'w', 'y':
+                return 4;
+            case 'k':
+                return 5;
+            case 'j', 'x':
+                return 8;
+            case 'q', 'z':
+                return 10;
+        }
 
-
+        return 0;
+    }
 
 
     /* Write a static method called productOfNumbersInArray
@@ -63,16 +83,40 @@ public class Problems
     e.g. if the array contained 3, 6 and 7 the result would be 126
     If the array is empty, the value returned should be zero
     */
+    static double productOfNumbersInArray(double[] arrayOfDoubles)
+    {
+        double product = 1;
 
+        if (arrayOfDoubles.length == 0)
+        {
+            return 0;
+        }
 
+        for (double digit : arrayOfDoubles)
+        {
+            product *= digit;
+        }
+
+        return product;
+    }
 
 
     //create a static method called minValue
     //It should take an array of int as its only parameter
     //it should return an int
     //the method should return the lowest value integer in the array, or 0 if the array is empty
-
-
+    static int minValue(int[] intArray)
+    {
+        if (intArray.length == 0)
+        {
+            return 0;
+        }
+        else
+        {
+            Arrays.sort(intArray);
+            return intArray[0];
+        }
+    }
 
 
     //Write a static method named sumOfNumbersFromOneToN that returns an int
@@ -80,8 +124,17 @@ public class Problems
     //It should return the sum of the numbers from 1 to the integer passed in (inclusive)
     //The parameter will always be greater than 1
     //e.g. if the parameter has a value of 4, return 10 (i.e. 1+2+3+4)
+    static int sumOfNumbersFromOneToN(int num)
+    {
+        int sum = 0;
 
+        for (int i = 0; i <= num; i++)
+        {
+            sum += i;
+        }
 
+        return sum;
+    }
 
 
     // Write a static method named removeDoubleSpaces
@@ -90,7 +143,11 @@ public class Problems
     // Where a sentence ends in a full stop followed by two (or more) spaces, reduce the number of spaces to one
     // Only remove extra spaces that follow a full stop
     // e.g. "Hello.  World." should become Hello. World.
-
+    static String removeDoubleSpaces(String sentence)
+    {
+        sentence = sentence.replaceAll("\\.\\s+", ". ");
+        return sentence;
+    }
 
 
     // Write a static method named apaFormatCitation that returns a String
@@ -99,8 +156,36 @@ public class Problems
     // The second should be an integer, which will represent a year
     // using the first text citation format, return a string for the citation
     // this should follow the guide at : http://blog.apastyle.org/apastyle/2011/11/the-proper-use-of-et-al-in-apa-style.html
+    static String apaFormatCitation(String[] authors, int year)
+    {
+        String citation = "";
 
+        if (authors.length == 1)
+        {
+            citation += authors[0];
+        }
+        else if (authors.length == 2)
+        {
+            citation += authors[0] + " & " + authors[1];
+        }
+        else if (authors.length < 5)
+        {
+            for (int i = 0; i < authors.length - 1; i++)
+            {
+                citation += authors[i] + ", ";
+            }
+            citation += "& " + authors[authors.length - 1];
+        }
+        else
+        {
+            citation += authors[0] + " et al.";
+        }
 
+        citation += ", ";
+        citation += year;
+
+        return citation;
+    }
 
 
     //Create a static method called isValidBishopMove which will return a boolean and take 4 parameters as follows:
@@ -110,7 +195,19 @@ public class Problems
     //where rows are labelled 1-8 and columns a-h (lowercase letters used)
     //calculate if a given move would be legal for a Bishop piece
     //Bishops can only move diagonally, by at least one square
+    static boolean isValidBishopMove(char currentColumn, int currentRow, char destinationColumn, int destinationRow)
+    {
+        if ((currentColumn + currentRow) == (destinationColumn + destinationRow))
+        {
+            return false;
+        }
+        else if (((currentColumn + currentRow) - (destinationColumn + destinationRow)) % 2 == 0)
+        {
+            return true;
+        }
 
+        return false;
+    }
 
 
 
